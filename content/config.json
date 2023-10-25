@@ -1,9 +1,18 @@
 {
-  "base_url": "https://next-template.staticcms.org",
-  "site_title": "Next.js Static CMS Blog",
-  "site_description": "Next.js blog template for Static CMS on Netlify",
-  "site_keywords": ["Next.js", "Static CMS", "Netlify", "React"],
+  "base_url": "https://pirkanmaanpinna.netlify.app",
+  "site_title": "Pirkanmaanpinna",
+  "site_description": "Pirkanmaan Pinna järjestää kursseja kaikille orkesterinjohdosta kiinnostuneille",
+  "site_keywords": [
+    "Opiskelu",
+    "Johtaminen",
+    "Kapellimestari",
+    "Kurssit"
+  ],
   "posts_per_page": 5,
+  "courses_per_page": 5,
   "twitter_account": "@my-account",
-  "github_account": "myaccount"
+  "github_account": "myaccount",
+  "facebook_account": "https://www.facebook.com/people/Pirkanmaan-Pinna-ry/100064428292407",
+  "contact_email": "posti@pirkanmaanpinna.fi",
+  "youtube_account": "https://www.youtube.com/results?search_query=pirkanmaan+pinna"
 }

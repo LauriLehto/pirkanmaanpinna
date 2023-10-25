@@ -44,12 +44,12 @@ const Navigation: FC = () => {
         >
           <li className="mb-7 text-3xl p-0 pr-6 last:mb-0 md:text-lg md:pr-0">
             <Link className={classNames(pathname === "/" && "text-gray-900 font-bold")} href="/">
-              about
+              Tietoja
             </Link>
           </li>
           <li className="mb-7 text-3xl p-0 pr-6 last:mb-0 md:text-lg md:pr-0">
-            <Link className={classNames(pathname.startsWith("/posts") && "text-gray-900 font-bold")} href="/posts">
-              blog
+            <Link className={classNames(pathname.startsWith("/courses") && "text-gray-900 font-bold")} href="/courses">
+              Courses
             </Link>
           </li>
         </ul>

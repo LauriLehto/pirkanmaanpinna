@@ -1,13 +1,13 @@
 tags:
-  - slug: document
-    name: document
-  - slug: mock
-    name: mock
-  - slug: style
-    name: style
-  - slug: license
-    name: license
-  - slug: mdx
-    name: mdx
-  - slug: markdown
-    name: markdown
+  - slug: technique
+    name: technique
+    en: Technique
+    fi: Tekniikka
+  - slug: symphony-orchestra
+    name: symphony-orchestra
+    en: Symphony Orchestra
+    fi: Sinfoniaorkesteri
+  - slug: wind-orchestra
+    name: wind-orchestra
+    en: Wind Orchestra
+    fi: Puhallinorkesteri

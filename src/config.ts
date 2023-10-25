@@ -2,8 +2,21 @@ import type { Config } from "@staticcms/core";
 
 const config: Config = {
   backend: { name: "git-gateway", branch: "main" },
+  local_backend: {
+    // when using a custom proxy server port
+    url: "http://localhost:8081/api/v1",
+    // when accessing the local site from a host other than 'localhost' or '127.0.0.1'
+    allowed_hosts: ["192.168.0.1"],
+  },
+  locale: "fi",
+  display_url: "https://pirkanmaanpinna.netlify.app",
+  logo_url: "https://pirkanmaanpinna.netlify.app/images/logo.svg",
   media_folder: "public/images",
   public_folder: "/images",
+  media_library: {
+    max_file_size: 2048000,
+    folder_support: true,
+  },
   collections: [
     {
       name: "config",
@@ -13,9 +26,9 @@ const config: Config = {
       files: [
         {
           name: "general",
-          label: "Site Config",
+          label: "Asetukset",
           file: "content/config.json",
-          description: "General site settings",
+          description: "Sivun yleiset asetukset",
           fields: [
             {
               label: "URL",
@@ -23,27 +36,39 @@ const config: Config = {
               widget: "string",
               hint: "Do not enter the trailing slash of the URL",
             },
-            { label: "Site title", name: "site_title", widget: "string" },
+            { label: "Sivun nimi", name: "site_title", widget: "string" },
             {
-              label: "Site description",
+              label: "Sivun kuvaus",
               name: "site_description",
               widget: "string",
             },
             {
-              label: "Site keywords",
+              label: "Avainsanoja",
               name: "site_keywords",
               widget: "list",
               summary: "{{fields.keyword.keyword}}",
-              fields: [{ label: "Keyword", name: "keyword", widget: "string" }],
+              fields: [
+                { label: "Avainsana", name: "keyword", widget: "string" },
+              ],
             },
             {
-              label: "Twitter account",
+              label: "Twitter tili",
               name: "twitter_account",
               widget: "string",
             },
             {
-              label: "GitHub account",
-              name: "github_account",
+              label: "Facebook tili",
+              name: "facebook_account",
+              widget: "string",
+            },
+            {
+              label: "YouTube tili",
+              name: "youtube_account",
+              widget: "string",
+            },
+            {
+              label: "Sähköposti",
+              name: "contact_email",
               widget: "string",
             },
           ],
@@ -58,36 +83,94 @@ const config: Config = {
       files: [
         {
           name: "authors",
-          label: "Authors",
+          label: "Julkaisijat",
           file: "content/meta/authors.yml",
-          description: "Author descriptions",
+          description: "Julkaisijan tiedot",
           fields: [
             {
               name: "authors",
-              label: "Authors",
-              label_singular: "Author",
+              label: "Julkaisijat",
+              label_singular: "Julkaisija",
               widget: "list",
               fields: [
                 {
-                  label: "Slug",
+                  label: "Tunniste",
                   name: "slug",
                   widget: "string",
-                  hint: "The part of a URL identifies the author",
+                  hint: "Julkaisijan tunniste",
                 },
                 {
-                  label: "Name",
+                  label: "Nimi",
                   name: "name",
                   widget: "string",
-                  hint: "First and Last",
+                  hint: "Etu- ja sukunimi",
                 },
-                { label: "Introduction", name: "introduction", widget: "text" },
+                { label: "Esittely", name: "introduction", widget: "text" },
+              ],
+            },
+          ],
+        },
+        {
+          name: "instructors",
+          label: "Kouluttajat",
+          file: "content/meta/instructors.yml",
+          description: "Kouluttajan tiedot",
+          fields: [
+            {
+              name: "instructors",
+              label: "Kouluttajat",
+              label_singular: "Kouluttaja",
+              widget: "list",
+              fields: [
+                {
+                  label: "Tunniste",
+                  name: "slug",
+                  widget: "string",
+                  hint: "Kouluttajan tunniste",
+                },
+                {
+                  label: "Nimi",
+                  name: "name",
+                  widget: "string",
+                  hint: "Etu- ja sukunimi",
+                },
+                { label: "Esittely", name: "introduction", widget: "text" },
+              ],
+            },
+          ],
+        },
+        {
+          name: "courses",
+          label: "Kurssit",
+          file: "content/meta/courses.yml",
+          description: "Kurssin tiedot",
+          fields: [
+            {
+              name: "courses",
+              label: "Kurssit",
+              label_singular: "Kurssi",
+              widget: "list",
+              fields: [
+                {
+                  label: "Tunniste",
+                  name: "slug",
+                  widget: "string",
+                  hint: "Kurssin tunniste",
+                },
+                {
+                  label: "Kouluttaja",
+                  name: "instructor",
+                  widget: "string",
+                  hint: "Kurssin kouluttaja",
+                },
+                { label: "Esittely", name: "introduction", widget: "text" },
               ],
             },
           ],
         },
         {
           name: "tags",
-          label: "Tags",
+          label: "Tagit",
           file: "content/meta/tags.yml",
           description: "List of tags",
           fields: [
@@ -166,6 +249,86 @@ const config: Config = {
           ],
         },
         { label: "Body", name: "body", widget: "markdown" },
+      ],
+    },
+    {
+      name: "courses",
+      label: "Kurssit",
+      folder: "content/courses/",
+      extension: "mdx",
+      format: "frontmatter",
+      create: true,
+      slug: "{{slug}}",
+      identifier_field: "slug",
+      summary: "{{title}}",
+      fields: [
+        { label: "Tunniste", name: "slug", widget: "string" },
+        { label: "Otsikko", name: "title", widget: "string" },
+        {
+          label: "Julkaisupäivä",
+          name: "date",
+          widget: "datetime",
+          format: "yyyy-MM-dd",
+          date_format: "yyyy-MM-dd",
+          time_format: false,
+        },
+        {
+          label: "Kurssi alkaa",
+          name: "start-date",
+          widget: "datetime",
+          format: "yyyy-MM-dd",
+          date_format: "yyyy-MM-dd",
+          time_format: false,
+        },
+        {
+          label: "Kurssi päättyy",
+          name: "end-date",
+          widget: "datetime",
+          format: "yyyy-MM-dd",
+          date_format: "yyyy-MM-dd",
+          time_format: false,
+        },
+        {
+          label: "Julkaisija",
+          name: "author",
+          widget: "relation",
+          collection: "meta",
+          file: "authors",
+          search_fields: ["authors.*.name"],
+          display_fields: ["authors.*.name"],
+          value_field: "authors.*.slug",
+        },
+        {
+          label: "Kouluttaja",
+          name: "instructor",
+          widget: "relation",
+          collection: "meta",
+          file: "instructors",
+          search_fields: ["instructors.*.name"],
+          display_fields: ["instructors.*.name"],
+          value_field: "instructors.*.slug",
+        },
+        {
+          label: "Tunnisteet",
+          label_singular: "Tunniste",
+          name: "tags",
+          widget: "list",
+          summary: "{{fields.tag}}",
+          fields: [
+            {
+              label: "Tunniste",
+              name: "tag",
+              widget: "relation",
+              collection: "meta",
+              file: "tags",
+              search_fields: ["tags.*.name"],
+              display_fields: ["tags.*.name"],
+              value_field: "tags.*.slug",
+            },
+          ],
+        },
+        { label: "Kuvaus", name: "description-fi", widget: "markdown" },
+        { label: "Description", name: "description-en", widget: "markdown" },
       ],
     },
   ],

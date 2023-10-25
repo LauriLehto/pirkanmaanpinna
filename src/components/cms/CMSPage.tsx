@@ -32,9 +32,9 @@ const CMSPage: FC = () => {
     CMS.registerPreviewTemplate("posts", PostPreview);
 
     CMS.registerAdditionalLink({
-      id: "external-link",
-      title: "External link",
-      data: "https://example.com/",
+      id: "link",
+      title: "Musicedu kurssit",
+      data: "https://www.musicedu.fi/muut-ilmoitukset/kurssit-ja-leirit",
     });
 
     CMS.init({ config });

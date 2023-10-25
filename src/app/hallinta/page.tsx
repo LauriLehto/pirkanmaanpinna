@@ -12,7 +12,7 @@ const Admin: FC = () => {
     []
   );
 
-  return useMemo(() => <CMSPage key="admin" />, [CMSPage]);
+  return useMemo(() => <CMSPage key="hallinta" />, [CMSPage]);
 };
 
 export default Admin;
