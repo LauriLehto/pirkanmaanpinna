@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import BasicMeta from "@/components/meta/BasicMeta";
 import OpenGraphMeta from "@/components/meta/OpenGraphMeta";
 import TwitterCardMeta from "@/components/meta/TwitterCardMeta";
-import PostList from "@/components/PostList";
+import CourseList from "@/components/CourseList";
 import config from "@/lib/config";
 import { countCourses, listCourseContent } from "@/lib/courses";
 import { listTags } from "@/lib/tags";
@@ -43,7 +43,7 @@ const Courses = async () => {
       <BasicMeta url={url} title={title} />
       <OpenGraphMeta url={url} title={title} />
       <TwitterCardMeta url={url} title={title} />
-      <PostList posts={courses} tags={tags} pagination={pagination} />
+      <CourseList courses={courses} tags={tags} pagination={pagination} />
     </Layout>
   );
 };
